@@ -1,5 +1,7 @@
 import React from 'react';
 import './ProductCard.css';
+import Face from './ui/Face';
+import Details from './ui/Details';
 
 class ProductCard extends React.Component {
     render() {
@@ -7,7 +9,8 @@ class ProductCard extends React.Component {
 
         return (
             <div className='card'>
-                { product.face }
+                <Face product={product} />
+                <Details product={product} />
             </div>
         );
     }

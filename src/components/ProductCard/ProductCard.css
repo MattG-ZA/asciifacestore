@@ -4,9 +4,17 @@
     width: 20%;
     margin: 10px;
     text-align: center;
-    line-height: 200px;
+    background-color: white;
 }
   
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.face {
+    line-height: 200px;
+}
+
+.faceDetails {
+    margin-bottom: 10px;
 }

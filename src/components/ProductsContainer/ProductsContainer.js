@@ -1,6 +1,7 @@
 import React from 'react';
-import ProductCard from '../ProductCard/ProductCard';
 import './ProductsContainer.css';
+import ProductRow from './ui/ProductRow';
+import SortButtons from '../SortButtons/SortButtons';
 
 class ProductsWrapper extends React.Component {
     constructor(props) {
@@ -9,15 +10,11 @@ class ProductsWrapper extends React.Component {
         this.state = {
             products: [],
         };
+
+        this.SortProducts = this.SortProducts.bind(this);
     }
 
-    componentDidMount() {
-        fetch('http://localhost:3000/products?_limit=10') // /api/products?_page=10&_limit=15
-            .then(response => response.json())
-            .then(json => this.setState({ products: json }));
-    }
-
-    render() {
+    CreateGrid() {
         const grid = [];
         let row = [];
         let counter = 0;
@@ -40,23 +37,38 @@ class ProductsWrapper extends React.Component {
             grid.push(row);
         }
 
-        console.log('grid', grid);
+        return grid;
+    }
+
+    FetchProducts(type) {
+        fetch(`http://localhost:3000/products?_page=1&_limit=10&_sort=${type}`)
+            .then(response => response.json())
+            .then(json => this.setState({ products: json }));
+    }
+
+    SortProducts(type) {
+        this.FetchProducts(type);
+    }
+
+    componentDidMount() {
+        this.FetchProducts(null);
+    }
+
+    render() {
+        const grid = this.CreateGrid();
 
         return (
-            <span className='container'>
-                {
-                    grid.map((row, index) => {
-                        return (
-                            <div key={index} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                                {
-                                    row.map((product, index) => {
-                                        return <ProductCard key={index} product={product} />;
-                                    })
-                                }
-                            </div>
-                        );
-                    })
-                }
+            <span>
+                <SortButtons SortProducts={this.SortProducts} />
+                <span className='container'>
+                    {
+                        grid.map((row, index) => {
+                            return (
+                                <ProductRow key={index} row={row} />
+                            );
+                        })
+                    }
+                </span>
             </span>
         );
     }
