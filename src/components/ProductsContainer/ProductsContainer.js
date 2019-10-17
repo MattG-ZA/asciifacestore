@@ -1,25 +1,16 @@
 import React from 'react';
 import './ProductsContainer.css';
 import ProductRow from './ui/ProductRow';
-import SortButtons from '../SortButtons/SortButtons';
+import LoadingIndicator from './ui/LoadingIndicator';
+import EndIndicator from './ui/EndIndicator';
 
 class ProductsWrapper extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            products: [],
-        };
-
-        this.SortProducts = this.SortProducts.bind(this);
-    }
-
-    CreateGrid() {
+    CreateGrid(products ) {
         const grid = [];
         let row = [];
         let counter = 0;
 
-        this.state.products.forEach((product) => {
+        products.forEach((product) => {
             counter++;
 
             row.push(product);
@@ -40,33 +31,24 @@ class ProductsWrapper extends React.Component {
         return grid;
     }
 
-    FetchProducts(type) {
-        fetch(`http://localhost:3000/products?_page=1&_limit=10&_sort=${type}`)
-            .then(response => response.json())
-            .then(json => this.setState({ products: json }));
-    }
-
-    SortProducts(type) {
-        this.FetchProducts(type);
-    }
-
-    componentDidMount() {
-        this.FetchProducts(null);
-    }
-
     render() {
-        const grid = this.CreateGrid();
+        const { products, loading, endOfCatalogue } = this.props;
+
+        const grid = this.CreateGrid(products);
 
         return (
             <span>
-                <SortButtons SortProducts={this.SortProducts} />
                 <span className='container'>
                     {
                         grid.map((row, index) => {
-                            return (
-                                <ProductRow key={index} row={row} />
-                            );
+                            return <ProductRow key={index} row={row} />;
                         })
+                    }
+                    {
+                        loading && <LoadingIndicator />
+                    }
+                    {
+                        endOfCatalogue && <EndIndicator />
                     }
                 </span>
             </span>

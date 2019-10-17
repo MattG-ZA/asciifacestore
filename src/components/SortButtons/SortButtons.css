@@ -24,7 +24,7 @@
 .button {
     border: none;
     border-radius: 2px;
-    padding: 12px 18px;
+    padding: 12px 8px;
     font-size: 16px;
     text-transform: uppercase;
     cursor: pointer;
@@ -32,7 +32,7 @@
     background-color: white;
     box-shadow: 0 0 4px #999;
     outline: none;
-    width: 6%;
+    width: 7%;
     display: flex;
     justify-content: space-between;
 }

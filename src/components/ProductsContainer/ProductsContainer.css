@@ -11,3 +11,23 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.loading {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 5px;
+
+    animation: textZoom 1s infinite;
+}
+
+@keyframes textZoom {
+    0%   { font-size: 24px; }
+    50%  { font-size: 28px; }
+    100% { font-size: 24px; }
+}
+
+.end {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 5px;
+}
