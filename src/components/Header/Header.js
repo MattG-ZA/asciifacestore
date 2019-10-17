@@ -1,8 +1,9 @@
 import React from 'react';
+import './Header.css';
 
 const Header = () => {
     return (
-        <div>
+        <div className='header'>
             <h1>Products Grid</h1>
 
             <p>Here you're sure to find a bargain on some of the finest ascii available to purchase. Be sure to peruse our

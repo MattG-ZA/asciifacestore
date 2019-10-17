@@ -2,10 +2,12 @@ import React from 'react';
 import '../ProductCard.css';
 
 class Details extends React.Component {
+    // Function to format the price
     CalculatePriceDisplay(price) {
         return '$' + (price / 100).toFixed(2);
     }
 
+    // Function to format the date
     CalculateDateDisplay(date) {
         // hours * minutes * seconds * milliseconds
         const oneDay = 24 * 60 * 60 * 1000;

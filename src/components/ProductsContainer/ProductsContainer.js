@@ -3,9 +3,11 @@ import './ProductsContainer.css';
 import ProductRow from './ui/ProductRow';
 import LoadingIndicator from './ui/LoadingIndicator';
 import EndIndicator from './ui/EndIndicator';
+import Advert from './ui/Advert';
 
 class ProductsWrapper extends React.Component {
-    CreateGrid(products ) {
+    // Function for creating the products grid, with 5 products per row
+    CreateGrid(products) {
         const grid = [];
         let row = [];
         let counter = 0;
@@ -32,24 +34,39 @@ class ProductsWrapper extends React.Component {
     }
 
     render() {
-        const { products, loading, endOfCatalogue } = this.props;
+        const { products, loading, endOfCatalogue, ads } = this.props;
 
         const grid = this.CreateGrid(products);
+        let adCounter = 0;
 
         return (
             <span>
                 <span className='container'>
                     {
                         grid.map((row, index) => {
-                            return <ProductRow key={index} row={row} />;
+                            // Since there are 5 products per row, every 4th row will be 20 products
+                            const showAd = (index + 1) % 4 === 0;
+                            let ad = null;
+
+                            if (showAd) {
+                                ad = ads[adCounter];
+                                adCounter++;
+                            }
+
+                            return (
+                                <span>
+                                    <ProductRow key={index} row={row} />
+                                    {
+                                        showAd && <span className='adContainer'>
+                                            <Advert ad={ad} />
+                                        </span>
+                                    }
+                                </span>
+                            );
                         })
                     }
-                    {
-                        loading && <LoadingIndicator />
-                    }
-                    {
-                        endOfCatalogue && <EndIndicator />
-                    }
+                    {loading && <LoadingIndicator />}
+                    {endOfCatalogue && <EndIndicator />}
                 </span>
             </span>
         );

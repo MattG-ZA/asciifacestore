@@ -13,6 +13,7 @@ class ProductsPage extends React.Component {
             loading: true,
             endOfCatalogue: false,
             cachedBatch: [],
+            ads: [],
         };
 
         this.SortProducts = this.SortProducts.bind(this);
@@ -72,6 +73,11 @@ class ProductsPage extends React.Component {
             this.setState({ page: this.state.page + 1 });
 
             if (!this.state.endOfCatalogue) {
+                // Since there are 10 products per page, display an ad every 2 pages
+                if (this.state.page % 2 === 0) {
+                    this.GenerateAds();
+                }
+
                 this.FetchProducts();
 
                 // If there are no products cached, get the next batch
@@ -80,6 +86,20 @@ class ProductsPage extends React.Component {
                 }
             }
         }
+    }
+
+    // Function for generating the ads to display
+    GenerateAds() {
+        const ads = this.state.ads;
+        let ad = Math.floor(Math.random() * 1000);
+
+        // If the previous ad is the same as the new ad, generate another ad
+        while (this.state.ads[this.state.ads.length - 1] === ad) {
+            ad = Math.floor(Math.random() * 1000);
+        }
+
+        ads.push(ad);
+        this.setState({ ads });
     }
 
     componentDidMount() {
@@ -98,6 +118,7 @@ class ProductsPage extends React.Component {
                     products={this.state.products}
                     loading={this.state.loading}
                     endOfCatalogue={this.state.endOfCatalogue}
+                    ads={this.state.ads}
                 />
             </span>
         );

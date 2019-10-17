@@ -31,3 +31,16 @@
     font-size: 24px;
     margin-top: 5px;
 }
+
+.adContainer {
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.ad {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border: 1px solid darkgrey;
+    border-radius: 20px;
+}
