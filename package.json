@@ -5,8 +5,9 @@
   "description": "Build a grid of product items and ads",
   "main": "server/index.js",
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "(json-server -p 3000 server/index.js --routes server/routes.json --middlewares server/handle-delay.js server/handle-ads.js) & npm run dev",
+    "react": "react-scripts start",
+    "server": "json-server -p 3000 server/index.js --routes server/routes.json --middlewares server/handle-delay.js server/handle-ads.js",
+    "start": "npm-run-all --parallel server react",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Matthew Gleed",
@@ -30,5 +31,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
   }
 }
